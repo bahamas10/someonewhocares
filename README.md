@@ -20,6 +20,10 @@ the host file with `sudo` if it fails at first.
     Password:
     > finished! # Last updated: Nov 24th, 2013 at 10:24
 
+The host file downloaded is automatically validated to ensure that each IP
+address is `127.0.0.1`, `255.255.255.255`, `0.0.0.0`, `::1`, or `fe80::1%lo0`
+before being installed.
+
 Usage
 -----
 
