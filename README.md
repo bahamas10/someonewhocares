@@ -1,4 +1,4 @@
-someonewhocares.sh
+someonewhocares
 ==================
 
 Pull and install the latest host file from http://someonewhocares.org
@@ -11,7 +11,7 @@ Run the script with no arguments to pull and install the latest host file.
 This script does not need to be run as root, as it will attempt to install
 the host file with `sudo` if it fails at first.
 
-    $ ./someonewhocares.sh
+    $ ./someonewhocares
     > pulling latest host file from http://someonewhocares.org/hosts//hosts... done
     > installing new host file
     tee: /etc/hosts: Permission denied
@@ -21,8 +21,8 @@ the host file with `sudo` if it fails at first.
 Usage
 -----
 
-    $ someonewhocares.sh
-    usage: someonewhocares.sh [options]
+    $ someonewhocares
+    usage: someonewhocares [options]
 
     pull and install the latest host file from someonewhocares.org
 
