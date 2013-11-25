@@ -13,9 +13,11 @@ the host file with `sudo` if it fails at first.
 
     $ ./someonewhocares
     > pulling latest host file from http://someonewhocares.org/hosts//hosts... done
+    > validating host file... passed
     > installing new host file
     tee: /etc/hosts: Permission denied
     > failed - retrying with sudo
+    Password:
     > finished! # Last updated: Nov 24th, 2013 at 10:24
 
 Usage

@@ -32,7 +32,7 @@ uninstall() {
 	EOF)
 	echo '> replacing host file'
 	if ! _install <<< "$default"; then
-		echo '> failed!'
+		echo '> failed!' >&2
 		return 1
 	fi
 	echo '> done'
@@ -60,17 +60,28 @@ shift "$((OPTIND - 1))"
 
 url=http://someonewhocares.org/hosts/$_type/hosts
 
+# get host file
 echo -n "> pulling latest host file from $url... "
 if ! hosts=$(curl -LsS "$url"); then
-	echo 'failed!'
+	echo 'failed!' >&2
 	exit 1
 fi
 echo 'done'
 
+# validate host file
+echo -n '> validating host file... '
+if awk '$0 !~ /^[ \t]*#|^[ \t]*$/ { print $1 }' <<< "$hosts" |\
+   grep -qv '127\.0\.0\.1\|0\.0\.0\.0\|255\.255\.255\.255\|::1\|fe80::1%lo0'; then
+	echo 'failed!' >&2
+	exit 2
+fi
+echo 'passed'
+
+# install host file
 echo '> installing new host file'
 if ! _install <<< "$hosts"; then
 	echo '> failed!' >&2
-	exit 2
+	exit 3
 fi
 
 echo "> finished! $(grep 'Last updated: ' <<< "$hosts")"
