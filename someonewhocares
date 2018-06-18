@@ -68,8 +68,21 @@ echo 'done'
 
 # validate host file
 echo -n '> validating host file... '
+validips=(
+    127.0.0.1
+    0.0.0.0
+    255.255.255.255
+    ::1
+    fe80::1%lo
+    fe00::0
+    ff00::0
+    ff02::1
+    ff02::2
+    ff02::3
+)
+IFS='|'; grep="${validips[*]}"; grep="^(${grep//\./\\.})$"; unset IFS
 if awk '$0 !~ /^[ \t]*#|^[ \t]*$/ { print $1 }' <<< "$hosts" |\
-   grep -qv '127\.0\.0\.1\|0\.0\.0\.0\|255\.255\.255\.255\|::1\|fe80::1%lo0'; then
+   grep -Ev "$grep"; then
 	echo 'failed!' >&2
 	exit 2
 fi
