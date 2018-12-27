@@ -49,14 +49,14 @@ _type=
 while getopts 'ht:u' option; do
 	case "$option" in
 		h) usage; exit 0;;
-		t) _type=$OPTARG;;
+		t) _type=/$OPTARG;;
 		u) uninstall; exit $?;;
 		*) usage >&2; exit 1;;
 	esac
 done
 shift "$((OPTIND - 1))"
 
-url=http://someonewhocares.org/hosts/$_type/hosts
+url=http://someonewhocares.org/hosts$_type/hosts
 
 # get host file
 echo -n "> pulling latest host file from $url... "
